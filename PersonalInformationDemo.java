@@ -21,11 +21,15 @@ public class PersonalInformationDemo
       keyboard1.close();
       return require;
    }
-      public static ArrayList<PersonalInformation> search_with_filter(ArrayList<PersonalInformation> all_users, 
+      public static ArrayList<String> search_with_filter(ArrayList<PersonalInformation> all_users, 
                                                                       ArrayList<String> requirement)
       {
-         ArrayList<PersonalInformation> list_of_qualified_user = new ArrayList<PersonalInformation>();
+         ArrayList<String> list_of_qualified_user = new ArrayList<String>();
          for (int i = 0; i< all_users.size(); i++){
+            //compare single
+            if (all_users.get(i).getSingle() == false){
+               break;
+            }
             //compare age 
             int low_age = Integer.parseInt(requirement.get(0));
             int high_age = Integer.parseInt(requirement.get(1));
@@ -37,10 +41,7 @@ public class PersonalInformationDemo
                   if (requirement.get(3).equals(all_users.get(i).getAddress())){
                   //compare personality 
                      if (requirement.get(4).equals(all_users.get(i).getPersonality())){
-                     //compare single
-                        if (requirement.get(5).equals(all_users.get(i).getSingle())){
-                           list_of_qualified_user.add(all_users.get(i));
-                        }
+                        list_of_qualified_user.add(all_users.get(i).getName());
                      }
                   }
                }
@@ -61,6 +62,11 @@ public static void main(String[] args)
    Long PhoneNumber;	// Phone number
    Scanner keyboard = new Scanner(System.in);
 			// Get the user's name.
+   String[] names = {"Ada", "Bob", "Cindy"};
+   String[] cities = {"Boston", "New York", "Beijing"};
+   String[] personality = {"Introvert", "Extrovert"};
+   String[] gender ={"Male","Female"};
+   
    System.out.print("What is your name? ");
    Name = keyboard.nextLine();
    System.out.print("What is your full address? ");
@@ -88,7 +94,7 @@ public static void main(String[] args)
    ArrayList<String> requirements = getrequirement();
    ArrayList<PersonalInformation> all_users = new ArrayList<PersonalInformation>() ;
    all_users.add(person);
-   ArrayList<PersonalInformation> result = search_with_filter(all_users, requirements);
+   ArrayList<String> result = search_with_filter(all_users, requirements);
    System.out.println(result.toString());
    }					
 }
