@@ -16,7 +16,7 @@ public class PersonalInformationDemo
       String c = keyboard1.nextLine();
       System.out.println("City:");
       String d = keyboard1.nextLine();
-      System.out.println("Personality: (introvert/extrovert)");
+      System.out.println("Personality: (introvert/extravert)");
       String e = keyboard1.nextLine();
       ArrayList<String> require = new ArrayList<String>(Arrays.asList(a,b,c,d,e));
       keyboard1.close();
@@ -69,21 +69,32 @@ public static void main(String[] args)
    names.add("Bob");
    names.add("Cake");
    names.add("Dave");
+   names.add("Liam");
+   names.add("Emma");
+   names.add("Eric");
+   names.add("Oliver");
+   names.add("Charlotte");
    ArrayList<String> cities = new ArrayList<String>();
    cities.add("Boston");
    cities.add("New York");
    cities.add("Beijing");
-   cities.add("LA");
+   cities.add("Los Angeles");
+   cities.add("Chicago");
+   cities.add("Houston");
+   cities.add("Dallas");
+   cities.add("Austin");
+   cities.add("San Francisco");
    ArrayList<String> personalities = new ArrayList<String>();
    personalities.add("Introvert");
-   personalities.add("Extrovert");
+   personalities.add("Extravert");
    ArrayList<String> genders = new ArrayList<String>();
-   genders.add("Make");
+   genders.add("Male");
    personalities.add("Female");
    ArrayList<PersonalInformation> simulated_database = new ArrayList<PersonalInformation>();
    int i = 0;
-   while (i < 4){
+   while (i < 9){
       String name = names.get(i);
+      System.out.println(name);
       String city = cities.get(i);
       int randomPersonality = ThreadLocalRandom.current().nextInt(0,1);
       int randomGender = ThreadLocalRandom.current().nextInt(0,1);
@@ -92,12 +103,15 @@ public static void main(String[] args)
       int age = ThreadLocalRandom.current().nextInt(18,40);
       long phonenumber = ThreadLocalRandom.current().nextLong(0,999999999);
       PersonalInformation newP = new PersonalInformation(name, city, age, phonenumber, 
-                                       "N/A", personality, true, gender, false);
+                                       "N/A", personality, true, gender, membership);
       simulated_database.add(newP);
       i++;
    }
-   System.out.println(simulated_database);
-
+   ArrayList<String> persons = new ArrayList<String>();
+   for (i = 0; i < 9; i ++){
+      persons.add(simulated_database.get(i).getName());
+   }
+   System.out.println(persons);
    System.out.print("What is your name? ");
    Name = keyboard.nextLine();
    System.out.print("What is your full address? ");
@@ -127,5 +141,6 @@ public static void main(String[] args)
    all_users.add(person);
    ArrayList<String> result = search_with_filter(all_users, requirements);
    System.out.println(result.toString());
+   keyboard.close();
    }					
 }
