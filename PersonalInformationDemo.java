@@ -1,6 +1,8 @@
 import java.util.Scanner; 	// imports the package necessary to use the Scanner class.
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 public class PersonalInformationDemo
    {// START --- search functions
    public static ArrayList<String> getrequirement(){
@@ -16,8 +18,7 @@ public class PersonalInformationDemo
       String d = keyboard1.nextLine();
       System.out.println("Personality: (introvert/extrovert)");
       String e = keyboard1.nextLine();
-      ArrayList<String> require = new ArrayList<String>(
-      Arrays.asList(a,b,c,d,e));
+      ArrayList<String> require = new ArrayList<String>(Arrays.asList(a,b,c,d,e));
       keyboard1.close();
       return require;
    }
@@ -57,16 +58,46 @@ public static void main(String[] args)
    String Address;		// Address
    String Personality;
    String Email;
-   String Gender; 
+   String Gender;       
    int Age;					// Age
-   Long PhoneNumber;	// Phone number
+   Long PhoneNumber;    // Phone number
+   boolean membership = false;	
    Scanner keyboard = new Scanner(System.in);
 			// Get the user's name.
-   String[] names = {"Ada", "Bob", "Cindy"};
-   String[] cities = {"Boston", "New York", "Beijing"};
-   String[] personality = {"Introvert", "Extrovert"};
-   String[] gender ={"Male","Female"};
-   
+   ArrayList<String> names = new ArrayList<String>();
+   names.add("Ada");
+   names.add("Bob");
+   names.add("Cake");
+   names.add("Dave");
+   ArrayList<String> cities = new ArrayList<String>();
+   cities.add("Boston");
+   cities.add("New York");
+   cities.add("Beijing");
+   cities.add("LA");
+   ArrayList<String> personalities = new ArrayList<String>();
+   personalities.add("Introvert");
+   personalities.add("Extrovert");
+   ArrayList<String> genders = new ArrayList<String>();
+   genders.add("Make");
+   personalities.add("Female");
+   ArrayList<PersonalInformation> simulated_database = new ArrayList<PersonalInformation>();
+   int i = 0;
+   while (i < 4){
+      String name = names.get(i);
+      String city = cities.get(i);
+      int randomPersonality = ThreadLocalRandom.current().nextInt(0,1);
+      int randomGender = ThreadLocalRandom.current().nextInt(0,1);
+      String personality = personalities.get(randomPersonality);
+      String gender = genders.get(randomGender);
+      int age = ThreadLocalRandom.current().nextInt(18,40);
+      long phonenumber = ThreadLocalRandom.current().nextLong(0,999999999);
+      PersonalInformation newP = new PersonalInformation(name, city, age, phonenumber, 
+                                       "N/A", personality, true, gender, false);
+      simulated_database.add(newP);
+      i++;
+   }
+   System.out.println(simulated_database);
+
    System.out.print("What is your name? ");
    Name = keyboard.nextLine();
    System.out.print("What is your full address? ");
@@ -82,7 +113,7 @@ public static void main(String[] args)
    System.out.print("Type your 10-digit phone number: ");
    PhoneNumber = keyboard.nextLong();
    PersonalInformation person = new PersonalInformation( Name, Address, Age, PhoneNumber, 
-                                                            Email, Personality, Single, Gender);
+                                                            Email, Personality, Single, Gender, false);
    System.out.println("Your name is " + person.getName());
    System.out.println("Your gender is " + person.getGender());
    System.out.println("Your address is " + person.getAddress());			
