@@ -8,8 +8,9 @@ public class PersonalInformation
       private String personality ; //personality
       private boolean single ;       //single status
       private String gender;
+      private Boolean membership;
       PersonalInformation(String Name, String Address, int Age, Long PhoneNumber,
-                          String Email,String Personality, boolean Single, String Gender)
+                          String Email,String Personality, boolean Single, String Gender,Boolean Memebership)
       {
          name = Name;
          address = Address;
@@ -19,6 +20,7 @@ public class PersonalInformation
          personality= Personality;
          single= Single;
          gender = Gender;
+         membership = Memebership;
       }
       public String getName()
       {
@@ -78,5 +80,12 @@ public class PersonalInformation
         return "single";}
         return "not single";
         
+      }
+
+      public boolean getMembership()
+      {
+      		
+      
+         return membership;
       }
    }

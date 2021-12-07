@@ -16,7 +16,7 @@ public class PersonalInformationDemo
       String c = keyboard1.nextLine();
       System.out.println("City:");
       String d = keyboard1.nextLine();
-      System.out.println("Personality: (introvert/extravert)");
+      System.out.println("Personality: (introvert/extrovert)");
       String e = keyboard1.nextLine();
       ArrayList<String> require = new ArrayList<String>(Arrays.asList(a,b,c,d,e));
       keyboard1.close();
@@ -28,7 +28,7 @@ public class PersonalInformationDemo
          ArrayList<String> list_of_qualified_user = new ArrayList<String>();
          for (int i = 0; i< all_users.size(); i++){
             //compare single
-            if (all_users.get(i).getSingle() == false){
+            if (all_users.get(i).getSingle() == "not single"){
                break;
             }
             //compare age 
@@ -50,6 +50,17 @@ public class PersonalInformationDemo
          }
          return list_of_qualified_user;
       }
+
+      public static void printtt(String is_search,PersonalInformation person){
+         if (is_search.equals("yes")){
+            ArrayList<String> requirements = getrequirement();
+            ArrayList<PersonalInformation> all_users = new ArrayList<PersonalInformation>() ;
+            all_users.add(person);
+            ArrayList<String> result = search_with_filter(all_users, requirements);
+            System.out.println(result.toString());}
+         
+            else {System.out.println("Thanks for using JustDate!");}
+      }
       // END --- search functions
 public static void main(String[] args)
    {
@@ -62,6 +73,7 @@ public static void main(String[] args)
    int Age;					// Age
    Long PhoneNumber;    // Phone number
    boolean membership = false;	
+   String is_search;
    Scanner keyboard = new Scanner(System.in);
 			// Get the user's name.
    ArrayList<String> names = new ArrayList<String>();
@@ -69,32 +81,21 @@ public static void main(String[] args)
    names.add("Bob");
    names.add("Cake");
    names.add("Dave");
-   names.add("Liam");
-   names.add("Emma");
-   names.add("Eric");
-   names.add("Oliver");
-   names.add("Charlotte");
    ArrayList<String> cities = new ArrayList<String>();
    cities.add("Boston");
    cities.add("New York");
    cities.add("Beijing");
-   cities.add("Los Angeles");
-   cities.add("Chicago");
-   cities.add("Houston");
-   cities.add("Dallas");
-   cities.add("Austin");
-   cities.add("San Francisco");
+   cities.add("LA");
    ArrayList<String> personalities = new ArrayList<String>();
    personalities.add("Introvert");
-   personalities.add("Extravert");
+   personalities.add("Extrovert");
    ArrayList<String> genders = new ArrayList<String>();
-   genders.add("Male");
+   genders.add("Make");
    personalities.add("Female");
    ArrayList<PersonalInformation> simulated_database = new ArrayList<PersonalInformation>();
    int i = 0;
-   while (i < 9){
+   while (i < 4){
       String name = names.get(i);
-      System.out.println(name);
       String city = cities.get(i);
       int randomPersonality = ThreadLocalRandom.current().nextInt(0,1);
       int randomGender = ThreadLocalRandom.current().nextInt(0,1);
@@ -103,15 +104,12 @@ public static void main(String[] args)
       int age = ThreadLocalRandom.current().nextInt(18,40);
       long phonenumber = ThreadLocalRandom.current().nextLong(0,999999999);
       PersonalInformation newP = new PersonalInformation(name, city, age, phonenumber, 
-                                       "N/A", personality, true, gender, membership);
+                                       "N/A", personality, true, gender, false);
       simulated_database.add(newP);
       i++;
    }
-   ArrayList<String> persons = new ArrayList<String>();
-   for (i = 0; i < 9; i ++){
-      persons.add(simulated_database.get(i).getName());
-   }
-   System.out.println(persons);
+   
+
    System.out.print("What is your name? ");
    Name = keyboard.nextLine();
    System.out.print("What is your full address? ");
@@ -126,8 +124,13 @@ public static void main(String[] args)
    Age = keyboard.nextInt();
    System.out.print("Type your 10-digit phone number: ");
    PhoneNumber = keyboard.nextLong();
+   System.out.print("Do you want to search for someone?");
+   is_search = keyboard.nextLine();
+   
    PersonalInformation person = new PersonalInformation( Name, Address, Age, PhoneNumber, 
                                                             Email, Personality, Single, Gender, false);
+                                                            printtt(is_search, person);                                            
+                                                           
    System.out.println("Your name is " + person.getName());
    System.out.println("Your gender is " + person.getGender());
    System.out.println("Your address is " + person.getAddress());			
@@ -136,11 +139,10 @@ public static void main(String[] args)
    System.out.println("Your personality is " + person.getPersonality());
    System.out.println("Your email address is " + person.getEmail());
    System.out.println("Your single statue is " + person.getSingle());
-   ArrayList<String> requirements = getrequirement();
-   ArrayList<PersonalInformation> all_users = new ArrayList<PersonalInformation>() ;
-   all_users.add(person);
-   ArrayList<String> result = search_with_filter(all_users, requirements);
-   System.out.println(result.toString());
-   keyboard.close();
+   System.out.println("Congradulation! you are now official a user of JustDate!");
+   System.out.println("Do you want to search for someone?");
+   is_search = keyboard.nextLine();
+                        printtt(is_search, person);
+   
    }					
 }
